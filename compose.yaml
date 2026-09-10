@@ -12,5 +12,42 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
 
+    networks:
+      - ai
+
+  opencode:
+    image: ghcr.io/anomalyco/opencode:latest
+    container_name: opencode
+    restart: unless-stopped
+
+    command:
+      - serve
+      - --hostname
+      - 0.0.0.0
+      - --port
+      - "4096"
+
+    ports:
+      - "4096:4096"
+
+    environment:
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD}
+
+    volumes:
+      - opencode-data:/root/.local/share/opencode
+      - opencode-config:/root/.config/opencode
+      - ./workspace:/workspace
+
+    working_dir: /workspace
+
+    networks:
+      - ai
+
+
+networks:
+  ai:
+
 volumes:
   n8n_data:
+  opencode-data:
+  opencode-config:
