@@ -27,12 +27,6 @@ services:
       - --port
       - "4096"
 
-    ports:
-      - "4096:4096"
-
-    environment:
-      OPENCODE_SERVER_PASSWORD: ${OPENCODE_SERVER_PASSWORD}
-
     volumes:
       - opencode-data:/root/.local/share/opencode
       - opencode-config:/root/.config/opencode
